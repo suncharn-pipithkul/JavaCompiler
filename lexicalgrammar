@@ -1,0 +1,122 @@
+// Copyright 2012- Bill Campbell, Swami Iyer and Bahar Akbal-Delibas.
+//
+// Lexical grammar for j--.
+
+// Whitespace -- ignored
+" " | "\t" | "\n" | "\r" | "\f"
+
+// Single line comment -- ignored
+"//" { ~( "\n" | "\r" ) } ( "\n" | "\r" ["\n"] )
+
+// Reserved words
+ABSTRACT       ::= "abstract"
+BOOLEAN        ::= "boolean"
+BREAK          ::= "break"
+CASE           ::= "case"
+CATCH          ::= "catch"
+CHAR           ::= "char"
+CLASS          ::= "class"
+CONTINUE       ::= "continue"
+DEFLT          ::= "default"
+DO             ::= "do"
+DOUBLE         ::= "double"
+ELSE           ::= "else"
+EXTENDS        ::= "extends"
+FALSE          ::= "false"
+FINALLY        ::= "finally"
+FOR            ::= "for"
+IF             ::= "if"
+IMPLEMENTS     ::= "implements"
+IMPORT         ::= "import"
+INSTANCEOF     ::= "instanceof"
+INT            ::= "int"
+INTERFACE      ::= "interface"
+LONG           ::= "long"
+NEW            ::= "new"
+NULL           ::= "null"
+PACKAGE        ::= "package"
+PRIVATE        ::= "private"
+PROTECTED      ::= "protected"
+PUBLIC         ::= "public"
+RETURN         ::= "return"
+STATIC         ::= "static"
+SUPER          ::= "super"
+SWITCH         ::= "switch"
+THIS           ::= "this"
+THROW          ::= "throw"
+THROWS         ::= "throws"
+TRUE           ::= "true"
+TRY            ::= "try"
+VOID           ::= "void"
+WHILE          ::= "while"
+
+// Separators
+COMMA          ::= ","
+DOT            ::= "."
+LBRACK         ::= "["
+LCURLY         ::= "{"
+LPAREN         ::= "("
+RBRACK         ::= "]"
+RCURLY         ::= "}"
+RPAREN         ::= ")"
+SEMI           ::= ";"
+
+// Operators
+ASSIGN         ::= "="
+DEC            ::= "--"
+EQUAL          ::= "=="
+GT             ::= ">"
+INC            ::= "++"
+LAND           ::= "&&"
+LE             ::= "<="
+LNOT           ::= "!"
+MINUS          ::= "-"
+PLUS           ::= "+"
+PLUS_ASSIGN    ::= "+="
+STAR           ::= "*"
+DIV            ::= "/"
+REM            ::= "%"
+BITNOT         ::= "~"
+BITOR          ::= "|"
+BITXOR         ::= "^"
+BITAND         ::= "&"
+ALSHIFT        ::= "<<"
+ARSHIFT        ::= ">>"
+LRSHIFT        ::= ">>>"
+NOT_EQUAL      ::= "!="
+DIV_ASSIGN     ::= "/="
+MINUS_ASSIGN   ::= "-="
+STAR_ASSIGN    ::= "*="
+REM_ASSIGN     ::= "%="
+ARSHIFT_ASSIGN ::= ">>="
+LRSHIFT_ASSIGN ::= ">>>="
+GE             ::= ">="
+ALSHIFT_ASSIGN ::= "<<="
+LT             ::= "<"
+XOR_ASSIGN     ::= "^="
+OR_ASSIGN      ::= "|="
+LOR            ::= "||"
+AND_ASSIGN     ::= "&="
+QUESTION       ::= "?"
+COLON          ::= ":"
+
+// Identifiers
+IDENTIFIER     ::= ( "a"..."z" | "A"..."Z" | "_" | "$" )
+                       { "a"..."z" | "A"..."Z" | "_" | "0"..."9" | "$" }
+
+// Literals
+DIGITS         ::= ( "0"..."9" ) { "0"..."9" }
+INT_LITERAL    ::= DIGITS
+LONG_LITERAL   ::= INT_LITERAL ( "l" | "L" )
+EXPONENT       ::= ( "e" | "E" ) [ ( "+" | "-" ) ] DIGITS
+SUFFIX         ::= "d" | "D"
+DOUBLE_LITERAL ::= DIGITS "." [ DIGITS ] [ EXPONENT ] [ SUFFIX ]
+                 | "." DIGITS [ EXPONENT ] [ SUFFIX ]
+                 | DIGITS EXPONENT [ SUFFIX ]
+                 | DIGITS [ EXPONENT ] SUFFIX
+ESC            ::= "\\" ( "n" | "r" | "t" | "b" | "f" | "'" | "\"" | "\\" )
+STRING_LITERAL ::= "\"" { ESC | ~( "\"" | "\\" | "\n" | "\r" ) } "\""
+CHAR_LITERAL   ::= "'" ( ESC | ~( "'" | "\n" | "\r" | "\\" ) ) "'"
+
+// End of file
+EOF            ::= "<end of file>"
