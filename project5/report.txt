@@ -1,0 +1,147 @@
+1. Enter the number of hours it took you to complete the project between
+   the <<< and >>> signs below (eg, <<<10>>>).
+
+   <<<30>
+   
+2. Enter the difficulty level (1: very easy; 5: very difficult) of the project
+   between the <<< and >>> signs below (eg, <<<3>>>).
+
+   <<<5>>>
+
+3. Provide a short description of how you approached each problem, issues you 
+   encountered, and how you resolved those issues.
+
+   Problem 1 (Long and Double Basic Types)
+      Approach: ...
+      I used JLiteralInt as example for analyze and codegen.
+      Using Apendix D, I can figure out which JVM byte code to use for each
+      instruction. The rest were pretty straightforward because either the hint
+      told use what to do (skip an offset) or there is implementation of int
+      already there as an if statement, so what's left is adding else if for
+      double and long.
+
+      Issues and resolution: ...
+      Didn't have issue here.
+
+   Problem 2 (Operators)
+      Approach: ...
+      I actually did this problem first so that I can test problem 1.
+      I used similar JOp files as example to implement operators in problem 2.
+      For example, I used PostDecrement & PreIncrement as examples for
+      PostIncrement & PreDecrement. The most tricky one here is LogicalOr
+      because of short-circuiting logic.
+      For these two, I wrote a pseudocode mimicking the LogicalAnd pseudocode
+      from the slide.
+
+
+      Issues and resolution: ...
+      Didn't have issue here.
+
+   Problem 3 (Conditional Expression)
+      Approach: ...
+      The analyze part is provided from the hints. For codegen, I used the
+      pseudocode for if-else from the slide except ? : must have an else part
+      unlike normal if-else where else is optional.
+
+      Issues and resolution: ...
+      Didn't have issue here.
+
+   Problem 4 (Do Statement)
+      Approach: ...
+      After doing LogicalOr, this part is very easy. For analyze, the hint was
+      clear. For codegen, The jump condition must be at the end of body
+      which jump on true to the beginning of do-while loop.
+
+      Issues and resolution: ...
+      Didn't have issue here.
+
+   Problem 5 (For Statement)
+      Approach: ...
+      This one is also easy. I strictly followed the hint for analyze.
+      For codegen, I wrote a pseudocode first to see where to jump in a for
+      loop and add labels accordingly.
+
+      Issues and resolution: ...
+      encounter NullPointerException for init. I then realized that any of
+      these for loop parts can be empty(null).
+
+      Solution:
+      add if to check if it's null, don't analyze nor codegen them.
+
+   Problem 6 (Break Statement)
+      Approach: ...
+      This one I also strictly followed the hint. Without the hint, it was
+      very hard to come up with this solution. I kept a stack of which
+      statement the break; is in, then set a flag hasBreak for that statement.
+      The logic for breaking is dealth in JBreakStatement to jump to a break
+      label which is at the end of a for, do, while, switch.
+
+      Issues and resolution: ...
+      Didn't have issue here.
+
+   Problem 7 (Continue Statement)
+      Approach: ...
+      I implement it very similarly to break except instead of jumping to the
+      end, I jump to the beginning label.
+
+      Issues and resolution: ...
+      Infinite loop for the test case.
+
+      Solution:
+      I wrote the pseudocode and figured out that condinue should not jump to
+      the beginning of for, do, while. It should jump to code after body of
+      those statements.
+
+   Problem 8 (Switch Statement)
+      Approach: ...
+      This is a very hard one. Analyze is not hard because the hint was clear.
+      The hard part was codegen. I used javac -> javap on test code first
+      to see how javac made byte codes. Next, I used the book with
+      GenTableSwitch & GenLookUpSwitch to find what these 2 tables mean.
+      After that, I follow the byte code seen in previous examples. first is
+      condition, then tableswitch/lookupSwitch, then the case groups.
+
+      Issues and resolution: ...
+      I got Unable to resolve jump label(s).
+
+      Solution:
+      My friend Tony helped me debug using println(). We found that my
+      tableSwitch/lookupSwitch opcode always jump to default, so when
+      the switch case doesn't have a default. It doesn't know where to jump to.
+      I add jump to exitLabel in that case.
+
+   Problem 9 (Exception Handlers)
+      Approach: ...
+      I gave up on this. It's too hard. I got Stack expect int for sqrt().
+      I narrow it down and the issue came from the line that calls
+      double d = sqrt(..) in main but idk what cause that.
+
+      Issues and resolution: ...
+      I got Stack expect int for sqrt().
+
+   Problem 10 (Interface Type Declaration)
+      Approach: ...
+      I just follow the hint here. To do interfaceDeclaration, I copy paste
+      everything from classDeclaration and remove code that doesn't make sense
+      such as interface having constructor.
+
+
+      Issues and resolution: ...
+       Didn't have issue here.
+
+
+4. Did you receive help from anyone? List their names, status (classmate, 
+   CS451/651 grad, TA, other), and the nature of help received.
+
+   Name               Status       Help Received
+   ----               ------       -------------
+   Tony ??          class mate      debug switch
+
+   ...                ...          ...
+
+5. List any other comments here. Feel free to provide any feedback on how
+   much you learned from doing the assignment, and whether you enjoyed
+   doing it.
+
+   ...
+   :( first project that I didn't finish.

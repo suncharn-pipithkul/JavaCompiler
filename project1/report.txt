@@ -1,0 +1,112 @@
+1. Enter the number of hours it took you to complete the project between
+   the <<< and >>> signs below (eg, <<<10>>>).
+
+   <<<10>>>
+   
+2. Enter the difficulty level (1: very easy; 5: very difficult) of the project
+   between the <<< and >>> signs below (eg, <<<3>>>).
+
+   <<<3>>>
+
+3. Provide a short description of how you approached each problem, issues you 
+   encountered, and how you resolved those issues.
+
+   Problem 1 (Using CLEmitter)
+      Approach: ...
+      I used GenFactorial as the guideline + Appendix D.
+      I also drew the current state of the stack after each instruction to
+      keep track of what I should put on top next or which index I should load
+      to get the local variable.
+
+      The parts that differ between IsPrime & Factorial are:
+      boolean value, if-else, and for-loop.
+      For boolean, I looked up Appendix D to find instruction to deal with a byte,
+           but there is no store or load instruction for a byte,
+           so I decided to do the C approach and use int instead of boolean.
+      For if-else, I followed GenFactorial.java and see that
+           the if statement there flip the logic around and jump outside of {}
+           if the flip logic is true.
+           This works for the else clause only but not if because the code
+           falls through as mentioned in Issue & Resolution.
+      For for loop, I just write the pseudocode from the hint out.
+
+      Issues and resolution: ...
+      I had issue with writing the branch instructions for
+      "if (result)" conditions.
+      When n is prime, both println in if & else got executed.
+      I was writing if(!result) branch to print not prime.
+      Otherwise, print prime. The issue was when it's a prime number,
+      the code fall through from println("prime") to
+      println("not prime") in the "not prime" label.
+      My solution was to use GOTO instruction to skip println("not prime").
+
+   Problem 2 (Arithmetic Operations)
+      Approach: ...
+      I used the lecture for division + Appendix C for Java grammar rules + Appendix D.
+      For remainder, I follow the logic for division.
+      For Unary +, I found that J-- originally supported unary - already,
+      so I simply followed the logic for unary - here.
+
+      Issues and resolution: ...
+      I didn't have difficulty here :)
+
+   Problem 3 (Bitwise Operations)
+      Approach: ...
+      This is the hardest one for me because originally J-- grammar goes
+      from conditionalAndExpression ::= equalityExpression...
+      and |, ^, & grammar rules are between
+      conditionalAndExpression and equalityExpression,
+      so we have to add additional expression methods in the parser.
+      In addition, I figured I had to add all |, ^, & at the same time
+      to complete the grammar structure missing,
+      and change conditionalAndExpression ::= inclusiveOrExpression...
+      as express in Java grammar rule.
+
+      The J* code for |, ^, & are similar to == since they have
+      similar grammar structure ::= expression { symbol expression }.
+
+      For ~, the grammar is in simpleUnaryExpression,
+      so I add the condition for ~ there on top as specified in the grammar.
+
+      Issues and resolution: ...
+      I got stuck for several hours with inclusive or.
+      The exceptions reported the error came from JAssignOp,
+      so I thought it was an operator precedence issue.
+      I tried commenting out int c = a | b line in BitwiseOr.java,
+      but nothing change.
+      I retrace all the file I changed and eventually found out that
+      it was because I forgot to write JOrOp.
+      The real reason is because I implemented |, ^, & all at the same time
+      and got lost in files and methods needed to add/modify.
+      A better way of doing this is perhaps making a checklist
+      for which file/methods I need to code so I don't forget.
+
+   Problem 4 (Shift Operations)
+      Approach: ...
+      Question 4 is pretty much similar implementation to question 3.
+      The one big difference is in Scanner.java.
+      For <, We already have <= implemented so I added a condition there for <<.
+      For >> and >>>,
+      I need to add a new case for them.
+      Otherwise, at this point I feel comfortable adding new operators in J--.
+
+      Issues and resolution: ...
+      I didn't have difficulty here.
+
+4. Did you receive help from anyone? List their names, status (classmate, 
+   CS451/651 grad, TA, other), and the nature of help received.
+
+   Name               Status       Help Received
+   ----               ------       -------------
+
+   ...                ...          ...
+   Luke Vu            classmate     He told me to check Appendix D & C.
+
+5. List any other comments here. Feel free to provide any feedback on how
+   much you learned from doing the assignment, and whether you enjoyed
+   doing it.
+
+   ...
+   I think this is a very good assignment to help me warm up to J--.
+   I enjoy writing the code, but one thing I have in mind is unlike normal
+   Java code, I have no idea how to debug this assignment.
